@@ -16,15 +16,14 @@
     </style>
 
     <style name="AppTheme.ActionBar.Transparent" parent="AppTheme.NoActionBar">
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="windowActionBarOverlay">true</item>
         <item name="colorPrimary">@android:color/transparent</item>
     </style>
 
     <style name="AppTheme.ActionBar" parent="AppTheme.NoActionBar">
-        <item name="windowActionBarOverlay">false</item>
-        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
     </style>
+
 
 
 </resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+
+    <dimen name="TextViewPlato">18sp</dimen>
+    <dimen name="TextViewDescripcionPlato">11sp</dimen>
+
+    <dimen name="TextViewTitulo3">20sp</dimen>
+
+    <dimen name="TextViewDistanceTimeWidth">120dp</dimen>
+    <dimen name="TextViewDistanceTimeHeight">50dp</dimen>
+    <dimen name="ButtonCenterWidth">50dp</dimen>
+    <dimen name="ButtonCenterHeight">50dp</dimen>
+</resources>
