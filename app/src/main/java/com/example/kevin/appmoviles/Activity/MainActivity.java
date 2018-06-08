@@ -1,6 +1,8 @@
 package com.example.kevin.appmoviles.Activity;
 
 
+import android.annotation.SuppressLint;
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.kevin.appmoviles.Fragment.MapMainFragment;
@@ -28,14 +31,18 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
+import static com.example.kevin.appmoviles.Activity.LoginActivity.mApellidoUsuario;
+import static com.example.kevin.appmoviles.Activity.LoginActivity.mNombreUsuario;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback {
 
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private NavigationView navigationView;
-    private TextView tvNavUserNames,tvNavUserCharge;
+    private TextView tvNavUserNames,tvNavUserApellido;
     private View navHeader;
+    ImageView ivMyLocation;
     GoogleMap mGoogleMap;
     SupportMapFragment mMapFragment;
 
@@ -52,12 +59,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         navHeader = navigationView.getHeaderView(0);
         tvNavUserNames = navHeader.findViewById(R.id.tvNavUserNames);
-        tvNavUserCharge = navHeader.findViewById(R.id.tvNavUserCharge);
+        tvNavUserApellido = navHeader.findViewById(R.id.tvNavUserCharge);
+        ivMyLocation = findViewById(R.id.ivMyLocation);
+        ivMyLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GPSTracker gps= new GPSTracker(MainActivity.this);
+                if(gps.canGetLocation()) {
+                    double lat = gps.getLatitude();
+                    double lon = gps.getLongitude();
+                    LatLng origin = new LatLng(lat, lon);
+
+                    setCameraPosition(origin,15);
+                }
+            }
+        });
+
+
+        String mNombreCompleto = String.format("{0} {1}",mNombreUsuario,mApellidoUsuario);
+        tvNavUserNames.setText("Bienvenido");
+        tvNavUserApellido.setText(mNombreCompleto);
 
         mMapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapCustomer);
         mMapFragment.getMapAsync(this);
         //setFragment(0);
+
 
     }
 
@@ -96,9 +123,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.nav_task_list) {
+        if (id == R.id.nav_map) {
+
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
@@ -130,9 +159,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
+        mGoogleMap.setMyLocationEnabled(true);
+        //close when fake location
 
         GPSTracker gps= new GPSTracker(this);
         if(gps.canGetLocation()) {
@@ -143,6 +175,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             setCameraPosition(origin,15);
         }
     }
+
+
+
     private void setCameraPosition(LatLng target,float defaultZoom){
 
         CameraPosition.Builder builder = new CameraPosition.Builder();

@@ -4,7 +4,7 @@
     <string name="login_signup">Regístrate</string>
     <string name="login_acceder">Acceder</string>
     <string name="login_recordar">Recordar datos</string>
-    <string name="login_email">Correo electronico</string>
+    <string name="login_email">Usuario</string>
     <string name="login_password">Contraseña</string>
 
     <string name="option_yes">Si</string>

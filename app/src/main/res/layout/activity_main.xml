@@ -35,167 +35,34 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="?android:windowTitleSize"
+                android:layout_marginTop="30dp"
                 android:layout_marginHorizontal="16dp"
                 android:background="@drawable/background_blank_map_activity"
                 android:orientation="horizontal">
-                <LinearLayout
+                <ImageView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:layout_marginLeft="2dp"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_my_location_gray"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_dots_gray"/>
+                   android:src="@drawable/ic_search_24dp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_place_gray"/>
 
-                </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="12"
                     android:layout_marginRight="2dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <LinearLayout
+
+                    <EditText
+                        android:id="@+id/etBuscar"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:textAlignment="center"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tvOrigin"
-                            android:layout_width="match_parent"
-                            android:layout_height="16dp"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/colorGray"
-                            android:textSize="12dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:textAlignment="center"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tvDestiny"
-                            android:layout_width="match_parent"
-                            android:layout_height="16dp"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/colorGray"
-                            android:textSize="12dp" />
-                    </LinearLayout>
-                </LinearLayout>
-
-
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="16dp"
-                android:elevation="2dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/borde_text_time_distance1">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/borde_text_time_distance"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="@dimen/TextViewDistanceTimeWidth"
-                        android:layout_height="@dimen/TextViewDistanceTimeHeight"
-                        android:textAlignment="center"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tvDistance"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:text="2"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="15dp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:text="Distancia"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="12dp" />
-                    </LinearLayout>
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
-            </LinearLayout>
 
 
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="16dp"
-                android:elevation="2dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/borde_text_time_distance1">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/borde_text_time_distance"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="@dimen/TextViewDistanceTimeWidth"
-                        android:layout_height="@dimen/TextViewDistanceTimeHeight"
-                        android:textAlignment="center"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tvTime"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:text="2"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="15dp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:text="Tiempo Est."
-                            android:textColor="@color/colorWhite"
-                            android:textSize="12dp" />
-                    </LinearLayout>
-
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -233,7 +100,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
 
 
         </RelativeLayout>

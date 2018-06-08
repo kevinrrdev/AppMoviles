@@ -3,11 +3,13 @@ package com.example.kevin.appmoviles.Activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -18,6 +20,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kevin.appmoviles.R;
+import com.example.kevin.appmoviles.api.ApiClient;
+import com.example.kevin.appmoviles.api.request.LoginRequest;
+import com.example.kevin.appmoviles.api.response.LoginResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,8 +34,11 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword;
     private Button btnLogin;
     private TextView tvSignup;
-    private Switch swRemember;
     public ProgressBar pbLoading;
+    String user,password;
+
+    public static String mNombreUsuario ="Admin";
+    public static String mApellidoUsuario ="Admin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         tvSignup =  findViewById(R.id.tvSignup);
-        swRemember = findViewById(R.id.swRemember);
         pbLoading = findViewById(R.id.pbLoading);
         pbLoading.setVisibility(View.GONE);
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -55,27 +66,23 @@ public class LoginActivity extends AppCompatActivity {
         tvSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent iSheet= new Intent(LoginActivity.this,SignUpActivity.class);
-                startActivity(iSheet);
-                finish();
+                Intent iRegistrar= new Intent(LoginActivity.this,RegistrarActivity.class);
+                startActivity(iRegistrar);
+
             }
         });
     }
-
-    public void validation(){
-        if(validate()) {
-
-            Intent intent = new Intent(LoginActivity.this,
-                    MainActivity.class);
-            startActivity(intent);
+    private void validation(){
+        if(validate()){
+            new SignIn().execute();
         }
-        else
-            return;
+        else return;
+
     }
 
     public boolean validate() {
-        String user= etLoginID.getText().toString();
-        String password= etPassword.getText().toString();
+        user= etLoginID.getText().toString();
+        password= etPassword.getText().toString();
         boolean valid = true;
         //if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
         if(user.isEmpty()){
@@ -94,6 +101,75 @@ public class LoginActivity extends AppCompatActivity {
 
         return valid;
     }
+
+
+    private void doLogin() {
+
+
+
+
+        LoginRequest DataRequest = new LoginRequest();
+        DataRequest.setUsuario(user);
+        DataRequest.setPassword(password);
+
+
+        Call<LoginResponse> responseCall = ApiClient.getApiClient().doLogin(DataRequest);
+
+
+        responseCall.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+
+                if (response.isSuccessful()) {
+                    LoginResponse dataResponse = response.body();
+                    if (dataResponse.isSuccess()) {
+
+                        Intent iUnitActivity = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(iUnitActivity);
+                        LoginActivity.this.finish();
+                        mNombreUsuario = dataResponse.getNombre();
+                        mApellidoUsuario = dataResponse.getApellido();
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Log.i("LOGIN", "onFailure");
+            }
+        });
+
+
+    }
+    public class SignIn extends AsyncTask<Void,Integer,Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+
+            doLogin();
+            return true;
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pbLoading.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            pbLoading.setVisibility(View.GONE);
+
+        }
+    }
+
+
+
+
+
+
+
 
     protected void setStatusBarTranslucent(boolean makeTranslucent) {
         if (makeTranslucent) {
